@@ -2,6 +2,7 @@ package rest
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -125,6 +126,9 @@ func (b *ByBit) LinearCreateOrder(side string, orderType string, price float64,
 		params["order_link_id"] = orderLinkID
 	}
 	params["position_idx"] = positionIdx
+	if b.debugMode {
+		log.Printf("LinearCreateOrder params: %v", params)
+	}
 	query, resp, err = b.SignedRequest(http.MethodPost, "private/linear/order/create", params, &cResult)
 	if err != nil {
 		return

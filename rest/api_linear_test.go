@@ -37,7 +37,7 @@ func TestByBit_LinearGetKLine(t *testing.T) {
 func TestByBit_LinearCreateOrder(t *testing.T) {
 	b := newByBit()
 	_, _, order, err := b.LinearCreateOrder("Buy", "Limit", 35000, 1, "GoodTillCancel", 0,
-		0, false, false, "", "BTCUSDT")
+		0, false, false, "", 0, "BTCUSDT")
 	if err != nil {
 		t.Error(err)
 		return
