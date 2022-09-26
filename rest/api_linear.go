@@ -133,8 +133,7 @@ func (b *ByBit) LinearCreateOrder(side string, orderType string, price float64,
 		err = fmt.Errorf("%v body: [%v]", cResult.RetMsg, string(resp))
 		return
 	}
-	// {"ret_code":0,"ret_msg":"OK","ext_code":"","ext_info":"","result":{"order_id":"6f771a91-0f4e-4c01-973d-b58e6390ece0","user_id":443679,"symbol":"BTCUSDT","side":"Buy","order_type":"Limit","price":37927.5,"qty":1,"time_in_force":"GoodTillCancel","order_status":"Created","last_exec_price":0,"cum_exec_qty":0,"cum_exec_value":0,"cum_exec_fee":0,"reduce_only":false,"close_on_trigger":false,"order_link_id":"","created_time":"2022-01-25T02:06:25Z","updated_time":"2022-01-25T02:06:25Z","take_profit":0,"stop_loss":0,"tp_trigger_by":"UNKNOWN","sl_trigger_by":"UNKNOWN","
-	_idx":1},"time_now":"1643076385.967696","rate_limit_status":99,"rate_limit_reset_ms":1643076385963,"rate_limit":100}
+	// {"ret_code":0,"ret_msg":"OK","ext_code":"","ext_info":"","result":{"order_id":"6f771a91-0f4e-4c01-973d-b58e6390ece0","user_id":443679,"symbol":"BTCUSDT","side":"Buy","order_type":"Limit","price":37927.5,"qty":1,"time_in_force":"GoodTillCancel","order_status":"Created","last_exec_price":0,"cum_exec_qty":0,"cum_exec_value":0,"cum_exec_fee":0,"reduce_only":false,"close_on_trigger":false,"order_link_id":"","created_time":"2022-01-25T02:06:25Z","updated_time":"2022-01-25T02:06:25Z","take_profit":0,"stop_loss":0,"tp_trigger_by":"UNKNOWN","sl_trigger_by":"UNKNOWN","_idx":1},"time_now":"1643076385.967696","rate_limit_status":99,"rate_limit_reset_ms":1643076385963,"rate_limit":100}
 	result = cResult.Result
 	return
 }
