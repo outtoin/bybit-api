@@ -130,6 +130,18 @@ func (b *ByBit) GetTickers() (query string, resp []byte, result []Ticker, err er
 	return
 }
 
+// GetSimpleTickers
+func (b *ByBit) GetSimpleTickers() (query string, resp []byte, result []SimpleTicker, err error) {
+	var ret GetSimpleTickersResult
+	params := map[string]interface{}{}
+	query, resp, err = b.PublicRequest(http.MethodGet, "v2/public/tickers", params, &ret)
+	if err != nil {
+		return
+	}
+	result = ret.Result
+	return
+}
+
 // GetTradingRecords
 func (b *ByBit) GetTradingRecords(symbol string, from int64, limit int) (query string, resp []byte, result []TradingRecord, err error) {
 	var ret GetTradingRecordsResult

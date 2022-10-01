@@ -128,6 +128,13 @@ type Ticker struct {
 	CountdownHour        int          `json:"countdown_hour"`
 }
 
+type SimpleTicker struct {
+	Symbol    string       `json:"symbol"`
+	BidPrice  sjson.Number `json:"bid_price"`
+	AskPrice  sjson.Number `json:"ask_price"`
+	LastPrice float64      `json:"last_price,string"`
+}
+
 type GetTickersResult struct {
 	RetCode int      `json:"ret_code"`
 	RetMsg  string   `json:"ret_msg"`
@@ -135,6 +142,15 @@ type GetTickersResult struct {
 	ExtInfo string   `json:"ext_info"`
 	Result  []Ticker `json:"result"`
 	TimeNow string   `json:"time_now"`
+}
+
+type GetSimpleTickersResult struct {
+	RetCode int            `json:"ret_code"`
+	RetMsg  string         `json:"ret_msg"`
+	ExtCode string         `json:"ext_code"`
+	ExtInfo string         `json:"ext_info"`
+	Result  []SimpleTicker `json:"result"`
+	TimeNow string         `json:"time_now"`
 }
 
 type TradingRecord struct {
