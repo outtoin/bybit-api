@@ -184,9 +184,9 @@ type PriceFilter struct {
 }
 
 type LotSizeFilter struct {
-	MaxTradingQty int `json:"max_trading_qty"`
-	MinTradingQty int `json:"min_trading_qty"`
-	QtyStep       int `json:"qty_step"`
+	MaxTradingQty int     `json:"max_trading_qty"`
+	MinTradingQty float64 `json:"min_trading_qty"`
+	QtyStep       float64 `json:"qty_step"`
 }
 
 type SymbolInfo struct {
