@@ -215,7 +215,7 @@ func (b *ByBit) SwitchIsolated(symbol string, isIsolated bool, buyLeverage int, 
 	params["is_isolated"] = isIsolated
 	params["buy_leverage"] = buyLeverage
 	params["sell_leverage"] = sellLeverage
-	query, resp, err = b.SignedRequest(http.MethodPost, "v2/private/position/switch-isolated", params, &ret)
+	query, resp, err = b.SignedRequestToBody(http.MethodPost, "v2/private/position/switch-isolated", params, &ret)
 	if err != nil {
 		return
 	}
