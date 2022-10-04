@@ -206,3 +206,18 @@ func (b *ByBit) GetAccountRatio(symbol string, period string, limit int) (query 
 	result = ret.Result
 	return
 }
+
+// SwitchIsolated
+func (b *ByBit) SwitchIsolated(symbol string, isIsolated bool, buyLeverage int, sellLeverage int) (query string, resp []byte, err error) {
+	var ret BaseResult
+	params := map[string]interface{}{}
+	params["symbol"] = symbol
+	params["is_isolated"] = isIsolated
+	params["buy_leverage"] = buyLeverage
+	params["sell_leverage"] = sellLeverage
+	query, resp, err = b.SignedRequest(http.MethodPost, "v2/private/position/switch-isolated", params, &ret)
+	if err != nil {
+		return
+	}
+	return
+}
