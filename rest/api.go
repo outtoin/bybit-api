@@ -2,6 +2,9 @@ package rest
 
 import (
 	"bytes"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"github.com/json-iterator/go"
 	"io/ioutil"
@@ -153,4 +156,12 @@ func (b *ByBit) SignedRequest(method string, apiURL string, params map[string]in
 	}
 	err = json.Unmarshal(resp, result)
 	return
+}
+
+// getSigned
+func (b *ByBit) getSigned(param string) string {
+	sig := hmac.New(sha256.New, []byte(b.secretKey))
+	sig.Write([]byte(param))
+	signature := hex.EncodeToString(sig.Sum(nil))
+	return signature
 }
