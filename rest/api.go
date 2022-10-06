@@ -2,9 +2,6 @@ package rest
 
 import (
 	"bytes"
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
 	"fmt"
 	"github.com/json-iterator/go"
 	"io/ioutil"
@@ -156,52 +153,4 @@ func (b *ByBit) SignedRequest(method string, apiURL string, params map[string]in
 	}
 	err = json.Unmarshal(resp, result)
 	return
-}
-
-// SignedRequestToBody
-func (b *ByBit) SignedRequestToBody(method string, apiURL string, params map[string]interface{}, result interface{}) (fullURL string, resp []byte, err error) {
-	timestamp := time.Now().UnixNano()/1e6 + b.serverTimeOffset
-
-	params["api_key"] = b.apiKey
-	params["timestamp"] = timestamp
-
-	fullURL = b.baseURL + apiURL
-	if b.debugMode {
-		log.Printf("SignedRequestToBody: %v", fullURL)
-	}
-	jsonValue, _ := json.Marshal(params)
-
-	// get a http request
-	var request *http.Request
-	request, err = http.NewRequest(method, fullURL, bytes.NewBuffer(jsonValue))
-	if err != nil {
-		return
-	}
-	request.Header.Set("Content-Type", "application/json")
-
-	var response *http.Response
-	response, err = b.client.Do(request)
-	if err != nil {
-		return
-	}
-	defer response.Body.Close()
-
-	resp, err = ioutil.ReadAll(response.Body)
-	if err != nil {
-		return
-	}
-
-	if b.debugMode {
-		log.Printf("SignedRequestToBody: %v", string(resp))
-	}
-	err = json.Unmarshal(resp, result)
-	return
-}
-
-// getSigned
-func (b *ByBit) getSigned(param string) string {
-	sig := hmac.New(sha256.New, []byte(b.secretKey))
-	sig.Write([]byte(param))
-	signature := hex.EncodeToString(sig.Sum(nil))
-	return signature
 }

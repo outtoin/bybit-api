@@ -398,3 +398,19 @@ func (b *ByBit) LinearGetPosition(symbol string) (query string, resp []byte, res
 	result = r.Result
 	return
 }
+
+// LinearSwitchIsolated
+func (b *ByBit) LinearSwitchIsolated(symbol string, isIsolated bool, buyLeverage int, sellLeverage int) (query string, resp []byte, err error) {
+	var ret BaseResult
+	params := map[string]interface{}{}
+	params["symbol"] = symbol
+	params["is_isolated"] = isIsolated
+	params["buy_leverage"] = buyLeverage
+	params["sell_leverage"] = sellLeverage
+	query, resp, err = b.SignedRequest(http.MethodPost, "private/linear/position/switch-isolated", params, &ret)
+
+	if err != nil {
+		return
+	}
+	return
+}
