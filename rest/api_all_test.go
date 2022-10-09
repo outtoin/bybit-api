@@ -21,3 +21,12 @@ func TestByBit_SwitchIsolated(t *testing.T) {
 		return
 	}
 }
+
+func TestByBit_SetTradingStop(t *testing.T) {
+	b := newByBitAll()
+	_, _, err := b.LinearSetTradingStop("BTCUSDT", "Sell", 20000.0, 19000.0, 0.0, 0)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+}

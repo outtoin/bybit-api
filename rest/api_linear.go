@@ -414,3 +414,30 @@ func (b *ByBit) LinearSwitchIsolated(symbol string, isIsolated bool, buyLeverage
 	}
 	return
 }
+
+// LinearSetTradingStop
+func (b *ByBit) LinearSetTradingStop(symbol string, side string, takeProfit float64, stopLoss float64, trailingStop float64, positionIdx int) (query string, resp []byte, err error) {
+	var cResult BaseResult
+	params := map[string]interface{}{}
+	params["symbol"] = symbol
+	params["side"] = side
+	if takeProfit > 0 {
+		params["take_profit"] = takeProfit
+	}
+	if stopLoss > 0 {
+		params["stop_loss"] = stopLoss
+	}
+	if trailingStop > 0 {
+		params["trailing_stop"] = trailingStop
+	}
+	params["position_idx"] = positionIdx
+	query, resp, err = b.SignedRequest(http.MethodPost, "private/linear/position/trading-stop", params, &cResult)
+	if err != nil {
+		return
+	}
+	if cResult.RetCode != 0 {
+		err = fmt.Errorf("%v body: [%v]", cResult.RetMsg, string(resp))
+		return
+	}
+	return
+}
