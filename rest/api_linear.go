@@ -456,3 +456,17 @@ func (b *ByBit) LinearSetTradingStop(symbol string, side string, takeProfit floa
 	}
 	return
 }
+
+// LinearPositionSwitchMode
+func (b *ByBit) LinearPositionSwitchMode(symbol string, mode string) (query string, resp []byte, err error) {
+	var ret BaseResult
+	params := map[string]interface{}{}
+	params["symbol"] = symbol
+	params["mode"] = mode
+	query, resp, err = b.SignedRequest(http.MethodPost, "private/linear/position/switch-mode", params, &ret)
+
+	if err != nil {
+		return
+	}
+	return
+}
