@@ -431,7 +431,7 @@ func (b *ByBit) LinearSetLeverage(symbol string, buyLeverage int, sellLeverage i
 }
 
 // LinearSetTradingStop
-func (b *ByBit) LinearSetTradingStop(symbol string, side string, takeProfit float64, stopLoss float64, trailingStop float64, positionIdx int) (query string, resp []byte, err error) {
+func (b *ByBit) LinearSetTradingStop(symbol string, side string, takeProfit float64, stopLoss float64, trailingStop float64, tpTriggerBy string, slTriggerBy string, positionIdx int) (query string, resp []byte, err error) {
 	var cResult BaseResult
 	params := map[string]interface{}{}
 	params["symbol"] = symbol
@@ -444,6 +444,12 @@ func (b *ByBit) LinearSetTradingStop(symbol string, side string, takeProfit floa
 	}
 	if trailingStop > 0 {
 		params["trailing_stop"] = trailingStop
+	}
+	if tpTriggerBy != "" {
+		params["tp_trigger_by"] = tpTriggerBy
+	}
+	if slTriggerBy != "" {
+		params["sl_trigger_by"] = slTriggerBy
 	}
 	params["position_idx"] = positionIdx
 	query, resp, err = b.SignedRequest(http.MethodPost, "private/linear/position/trading-stop", params, &cResult)
