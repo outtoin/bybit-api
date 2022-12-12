@@ -514,3 +514,13 @@ type IndexOHLCResult struct {
 	BaseResult
 	Result []IndexOHLC `json:"result"`
 }
+
+type PredictedFundingRateResult struct {
+	PredictedFundingRate float64 `json:"predicted_funding_rate"`
+	PredictedFundingFee  float64 `json:"predicted_funding_fee"`
+}
+
+type PredictedFundingRateResponse struct {
+	BaseResult
+	Result PredictedFundingRateResult `json:"result"`
+}

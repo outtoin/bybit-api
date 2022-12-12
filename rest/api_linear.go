@@ -476,3 +476,19 @@ func (b *ByBit) LinearPositionSwitchMode(symbol string, mode string) (query stri
 	}
 	return
 }
+
+func (b *ByBit) LinearGetPredictedFunding(symbol string) (query string, resp []byte, result PredictedFundingRateResult, err error) {
+	var r PredictedFundingRateResponse
+	params := map[string]interface{}{}
+	params["symbol"] = symbol
+	query, resp, err = b.SignedRequest(http.MethodGet, "private/linear/predicted-funding", params, &r)
+	if err != nil {
+		return
+	}
+	if r.RetCode != 0 {
+		err = fmt.Errorf("%v body: [%v]", r.RetMsg, string(resp))
+		return
+	}
+	result = r.Result
+	return
+}
