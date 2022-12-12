@@ -481,7 +481,7 @@ func (b *ByBit) LinearGetPredictedFunding(symbol string) (query string, resp []b
 	var r PredictedFundingRateResponse
 	params := map[string]interface{}{}
 	params["symbol"] = symbol
-	query, resp, err = b.SignedRequest(http.MethodGet, "private/linear/predicted-funding", params, &r)
+	query, resp, err = b.SignedRequest(http.MethodGet, "private/linear/funding/predicted-funding", params, &r)
 	if err != nil {
 		return
 	}
